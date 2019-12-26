@@ -3,59 +3,78 @@ import Cocoa
 func art2binary(file: URL) {
     let image = NSImage(contentsOf: file)
     let img = NSBitmapImageRep(data: image!.tiffRepresentation!);
-    let white = NSColor(calibratedRed: 1, green: 1, blue: 1, alpha: 1)  // bit 0
-    let black = NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: 1) // bit 1
-    let red = NSColor(calibratedRed: 1, green: 0, blue: 0, alpha: 1) // bit 2
-    let green = NSColor(calibratedRed: 0, green: 1, blue: 0, alpha: 1) // bit 3
-    let blue = NSColor(calibratedRed: 0, green: 0, blue: 1, alpha: 1) // bit 4
-    let purple = NSColor(calibratedRed: 1, green: 0, blue: 1, alpha: 1)  // bit 5
-    let yellow = NSColor(calibratedRed: 1, green: 1, blue: 0, alpha: 1)  // bit 6
-    let teal = NSColor(calibratedRed: 0, green: 1, blue: 1, alpha: 1)  // bit 7
-    let gray = NSColor(calibratedRed: 0.5, green: 0.5, blue: 0.5, alpha: 1)  // noBit
-    
-    let height = Int(image!.size.height)
-    let width = Int(image!.size.width)
-    
+    let height = Int(img!.size.height)
+    let width = Int(img!.size.width)
     var i = 0
-    for x in 0..<height {
-        for y in 0..<width {
-            image!.lockFocus()
-            let color = img!.colorAt(x: x, y: y)
-            image!.unlockFocus()
-            if color == white {
+    for y in (0..<height).reversed() {
+        for x in 0..<width {
+            print("x:\(x) y:\(y)")
+            let color = img!.colorAt(x: (x * 2), y: (y * 2) )
+            if color == NSColor.white {
                 print("0")
             }
-            else if color == black {
+            else if color == NSColor.black {
                 print("1")
             }
-            else if color == red {
+            else if color == NSColor.red {
                 print("2")
             }
-            else if color == green {
+            else if color == NSColor.green {
                 print("3")
             }
-            else if color == blue {
+            else if color == NSColor.blue {
                 print("4")
             }
-            else if color == purple {
+            else if color == NSColor.magenta {
                 print("5")
             }
-            else if color == yellow {
+            else if color == NSColor.yellow {
                 print("6")
             }
-            else if color == teal {
+            else if color == NSColor.cyan {
                 print("7")
             }
-            else if color == gray {
-                print("")
+            else if color == NSColor.gray {
+                print(" ")
             }
             else {
-                print(color)
-                print(white)
+                if CGFloat(color!.redComponent) > 0.9 && CGFloat(color!.greenComponent) > 0.9 && CGFloat(color!.blueComponent) > 0.9 {
+                    print("0")
+                }
+                else if CGFloat(color!.redComponent) < 0.1 && CGFloat(color!.greenComponent) < 0.1 && CGFloat(color!.blueComponent) < 0.1 {
+                    print("1")
+                }
+                else if CGFloat(color!.redComponent) > 0.9 && CGFloat(color!.greenComponent) < 0.2 && CGFloat(color!.blueComponent) < 0.2 {
+                    print("2")
+                }
+                else if CGFloat(color!.redComponent) < 0.5 && CGFloat(color!.greenComponent) > 0.9 && CGFloat(color!.blueComponent) < 0.3 {
+                    print("3")
+                }
+                else if CGFloat(color!.redComponent) < 0.1 && CGFloat(color!.greenComponent) < 0.2 && CGFloat(color!.blueComponent) > 0.9 {
+                    print("4")
+                }
+                else if CGFloat(color!.redComponent) > 0.9 && CGFloat(color!.greenComponent) < 0.3 && CGFloat(color!.blueComponent) > 0.9 {
+                    print("5")
+                }
+                else if CGFloat(color!.redComponent) > 0.9 && CGFloat(color!.greenComponent) > 0.9 && CGFloat(color!.blueComponent) < 0.4 {
+                    print("6")
+                }
+                else if CGFloat(color!.redComponent) < 0.6 && CGFloat(color!.greenComponent) > 0.9 && CGFloat(color!.blueComponent) > 0.9 && CGFloat(color!.redComponent) > 0.4 {
+                    print("7")
+                }
+                else if CGFloat(color!.redComponent) < 0.6 && CGFloat(color!.greenComponent) < 0.6 && CGFloat(color!.blueComponent) < 0.6 && CGFloat(color!.redComponent) > 0.4 && CGFloat(color!.greenComponent) > 0.4 && CGFloat(color!.blueComponent) > 0.4 {
+                    print(" ")
+                }
+                else {
+                    print("Red: \(color!.redComponent)")
+                    print("Green: \(color!.greenComponent)")
+                    print("Blue: \(color!.blueComponent)")
+                }
             }
             i += 1
         }
     }
+//    print("\(width) by \(height)")
 }
 
 let input = CommandLine.arguments[1]

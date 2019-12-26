@@ -1,56 +1,43 @@
 import Cocoa
 
 func code2art(width: Int, height: Int, data: Data) -> NSImage {
-    let white = NSColor(calibratedRed: 1, green: 1, blue: 1, alpha: 1)  // bit 0
-    let black = NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: 1) // bit 1
-    let red = NSColor(calibratedRed: 1, green: 0, blue: 0, alpha: 1) // bit 2
-    let green = NSColor(calibratedRed: 0, green: 1, blue: 0, alpha: 1) // bit 3
-    let blue = NSColor(calibratedRed: 0, green: 0, blue: 1, alpha: 1) // bit 4
-    let purple = NSColor(calibratedRed: 1, green: 0, blue: 1, alpha: 1)  //bit 5
-    let yellow = NSColor(calibratedRed: 1, green: 1, blue: 0, alpha: 1)  //bit 6
-    let teal = NSColor(calibratedRed: 0, green: 1, blue: 1, alpha: 1)  //bit 7
-    let clear = NSColor(calibratedRed: 0.5, green: 0.5, blue: 0.5, alpha: 1)  // noData
-    
     let rectSize = NSSize(width: width, height: height) // size of code page
     
     let bit = NSImage(size: rectSize) // bit
-    var color: NSColor = white
+    var color: NSColor = NSColor.gray
     var x = 0
     var y = 0
     bit.lockFocus()
-    clear.drawSwatch(in: NSMakeRect(CGFloat(x),CGFloat(y),CGFloat(width),CGFloat(height)))
+    color.drawSwatch(in: NSMakeRect(CGFloat(x),CGFloat(y),CGFloat(width),CGFloat(height)))
     bit.unlockFocus()
 
     for s in data {
         let byte = String(s, radix: 8)
         for b in byte {
-            print(b)
             if b == "0" {
-                color = white
+                color = NSColor.white
             }
             else if b == "1" {
-                color = black
+                color = NSColor.black
             }
             else if b == "2" {
-                color = red
+                color = NSColor.red
             }
             else if b == "3" {
-                color = green
+                color = NSColor.green
             }
             else if b == "4" {
-                color = blue
+                color = NSColor.blue
             }
             else if b == "5" {
-                color = purple
+                color = NSColor.magenta
             }
             else if b == "6" {
-                color = yellow
+                color = NSColor.yellow
             }
             else if b == "7" {
-                color = teal
+                color = NSColor.cyan
             }
-
-            print(b)
             bit.lockFocus()
             color.drawSwatch(in: NSMakeRect(CGFloat(x),CGFloat(y),1,1))
             bit.unlockFocus()
