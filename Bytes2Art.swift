@@ -12,7 +12,8 @@ func code2art(width: Int, height: Int, data: Data) -> NSImage {
     bit.unlockFocus()
 
     for s in data {
-        let byte = String(s, radix: 8)
+        let byte = String(s)
+        print(byte)
         for b in byte {
             if b == "0" {
                 color = NSColor.white
@@ -102,11 +103,12 @@ func run() {
     let output = CommandLine.arguments[2]
 
     let file = URL(fileURLWithPath: input)
-    let data = NSData(contentsOf: file)
+    let data = try? Data(contentsOf: file)
+    print(data!)
     let w = Int(sqrt(Float(file.fileSize)) * sqrt(5))
     let h = Int(sqrt(Float(file.fileSize)) * sqrt(5))
 
-    let image = code2art(width: w, height: h, data: data! as Data)
+    let image = code2art(width: w, height: h, data: data!)
 
     let destinationURL = URL(fileURLWithPath: output)
     if image.pngWrite(to: destinationURL) {
