@@ -38,7 +38,6 @@ func art2binary(file: URL) -> Data {
             else if color == NSColor.gray {
                 if byteString != "" {
                     data.append(UInt8(byteString)!)
-                    print(UInt8(byteString)!)
                 }
                 byteString = ""
             }
@@ -70,7 +69,6 @@ func art2binary(file: URL) -> Data {
                 else if CGFloat(color!.redComponent) < 0.6 && CGFloat(color!.greenComponent) < 0.6 && CGFloat(color!.blueComponent) < 0.6 && CGFloat(color!.redComponent) > 0.4 && CGFloat(color!.greenComponent) > 0.4 && CGFloat(color!.blueComponent) > 0.4 {
                     if byteString != "" {
                         data.append(UInt8(byteString)!)
-                        print(UInt8(byteString)!)
                     }
                     byteString = ""
                 }
@@ -87,12 +85,14 @@ func art2binary(file: URL) -> Data {
 }
 
 let input = CommandLine.arguments[1]
-//let output = CommandLine.arguments[2]
+let output = CommandLine.arguments[2]
 
 let inputFile = URL(fileURLWithPath: input)
-//let outputFile = URL(fileURLWithPath: output)
+var outputFile = URL(fileURLWithPath: output)
 
 let data = art2binary(file: inputFile)
-print(data)
+
 let string = String(decoding: data, as: UTF8.self)
-print(string)
+try data.write(to: outputFile)
+
+print("File Saved to: \(outputFile)")
