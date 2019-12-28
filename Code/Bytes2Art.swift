@@ -10,9 +10,10 @@ func code2art(width: Int, height: Int, data: Data) -> NSImage {
     bit.lockFocus()
     color.drawSwatch(in: NSMakeRect(CGFloat(x),CGFloat(y),CGFloat(width),CGFloat(height)))
     bit.unlockFocus()
-
+        
     for s in data {
         let byte = String(s)
+        print(byte)
         for b in byte {
             if b == "0" {
                 color = NSColor.white
@@ -37,6 +38,12 @@ func code2art(width: Int, height: Int, data: Data) -> NSImage {
             }
             else if b == "7" {
                 color = NSColor.cyan
+            }
+            else if b == "8" {
+                color = NSColor.brown
+            }
+            else if b == "9" {
+                color = NSColor.orange
             }
             bit.lockFocus()
             color.drawSwatch(in: NSMakeRect(CGFloat(x),CGFloat(y),1,1))

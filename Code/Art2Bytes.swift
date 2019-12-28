@@ -35,9 +35,16 @@ func art2binary(file: URL) -> Data {
             else if color == NSColor.cyan {
                 byteString += "7"
             }
+            else if color == NSColor.brown {
+                byteString += "8"
+            }
+            else if color == NSColor.orange {
+                byteString += "9"
+            }
             else if color == NSColor.gray {
                 if byteString != "" {
                     data.append(UInt8(byteString)!)
+                    print(UInt8(byteString)!)
                 }
                 byteString = ""
             }
@@ -66,9 +73,16 @@ func art2binary(file: URL) -> Data {
                 else if CGFloat(color!.redComponent) < 0.6 && CGFloat(color!.greenComponent) > 0.9 && CGFloat(color!.blueComponent) > 0.9 && CGFloat(color!.redComponent) > 0.4 {
                     byteString += "7"
                 }
+                else if CGFloat(color!.redComponent) < 0.6 && CGFloat(color!.greenComponent) < 0.5 && CGFloat(color!.blueComponent) < 0.3 && CGFloat(color!.redComponent) > 0.5 && CGFloat(color!.greenComponent) > 0.4 && CGFloat(color!.blueComponent) > 0.2 {
+                    byteString += "8"
+                }
+                else if CGFloat(color!.redComponent) > 0.9 && CGFloat(color!.greenComponent) < 0.6 && CGFloat(color!.blueComponent) < 0.2 && CGFloat(color!.greenComponent) > 0.5 {
+                    byteString += "9"
+                }
                 else if CGFloat(color!.redComponent) < 0.6 && CGFloat(color!.greenComponent) < 0.6 && CGFloat(color!.blueComponent) < 0.6 && CGFloat(color!.redComponent) > 0.4 && CGFloat(color!.greenComponent) > 0.4 && CGFloat(color!.blueComponent) > 0.4 {
                     if byteString != "" {
                         data.append(UInt8(byteString)!)
+                        print(UInt8(byteString)!)
                     }
                     byteString = ""
                 }
