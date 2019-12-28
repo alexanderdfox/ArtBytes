@@ -4,6 +4,7 @@ build:
 	mkdir Art
 	swiftc Code/Bytes2Art.swift -o Executable/Bytes2Art
 	swiftc Code/Art2Bytes.swift -o Executable/Art2Bytes
+	make hello
 
 clean: 
 	rm -rf Executable
@@ -19,7 +20,16 @@ decode:
 	./Executable/Art2Bytes Art/Art2Bytes.png Decoded/Art2Bytes.swift
 
 hello:
-	echo "Hello World!" > hello.txt
-	./Executable/Bytes2Art hello.txt Art/hello.png
-	./Executable/Art2Bytes Art/hello.png Decoded/hello.txt
-	rm hello.txt
+	@echo "Hello World!" > Hello.txt
+	./Executable/Bytes2Art Hello.txt Art/Hello.png
+	./Executable/Art2Bytes Art/Hello.png Decoded/Hello.txt
+	@rm hello.txt
+
+help:
+	@echo "make" : to build
+	@echo "make build" : to build
+	@echo "make clean" : to clean
+	@echo "make encode" : to create default encoded pictures
+	@echo "make decode" : to create default decoded source code
+	@echo "make hello" : to create default encoded and decoded "Hello World" example
+	@echo "make help" : for this screen

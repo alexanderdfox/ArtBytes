@@ -5,3 +5,4 @@ Code/Bytes2Art.swift = Encode Script
 Art/Art2Bytes.png = Decode Script as Art
 Art/Bytes2Art.png = Encode Script as Art
 Art/Hello.png = Hello World as Art
+Makefile = run "make help" for instructions.
