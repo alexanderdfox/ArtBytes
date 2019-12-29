@@ -110,9 +110,9 @@ func run() {
 
     let file = URL(fileURLWithPath: input)
     let data = try? Data(contentsOf: file)
-    
-    let w = Int(sqrt(Float(file.fileSize)) * sqrt(5))
-    let h = Int(sqrt(Float(file.fileSize)) * sqrt(5))
+
+    let w = Int(ceil(sqrt(Float(data!.count)))) * 2
+    let h = Int(ceil(sqrt(Float(data!.count)))) * 2
 
     let image = code2art(width: w, height: h, data: data!)
 
